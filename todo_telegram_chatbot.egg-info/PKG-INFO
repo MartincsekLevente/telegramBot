@@ -1,10 +1,5 @@
 Metadata-Version: 2.1
 Name: todo-telegram-chatbot
-Version: 1.0
-Summary: UNKNOWN
-Home-page: UNKNOWN
-License: UNKNOWN
-Platform: UNKNOWN
-
-UNKNOWN
-
+Version: 1.0.0
+Author: Martincsek Levente
+Author-email: martincsekl@gmail.com
