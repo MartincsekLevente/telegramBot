@@ -16,16 +16,7 @@ start_text = 'Szia! Miben tudok segíteni? A parancsok megtekintéséhez haszná
 none_user_name_text = 'Úgy néz ki, hogy a felhasználóneved None. Kérlek állíts be magadnak egy felhasználónevet!'
 
 start_session_text = "Üdvözöllek a ToDo Hub-on! Válassz a megadott opciók közül: \n\n" \
-               "Hozzáadás - Addj hozzá a ToDo listádhoz egy feladatot! \n\n" \
-               "Kiválasztás - Válassz ki egy feladatot a saját ToDo listádról! \n\n" \
-               "Megjelenítés -  Megjelenítem neked az összes ToDo feladatot a listádról! \n\n" \
-               "Teljesítmény - Megjelenítem neked az eddig elért eredményeidet a teljesített feladataid alapján! \n"
-
-
-
-
-
-
-
-
-
+                     "Hozzáadás - Addj hozzá a ToDo listádhoz egy feladatot! \n\n" \
+                     "Kiválasztás - Válassz ki egy feladatot a saját ToDo listádról! \n\n" \
+                     "Megjelenítés -  Megjelenítem neked az összes ToDo feladatot a listádról! \n\n" \
+                     "Teljesítmény - Megjelenítem neked az eddig elért eredményeidet a teljesített feladataid alapján! \n"

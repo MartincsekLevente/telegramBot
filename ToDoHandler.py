@@ -94,7 +94,7 @@ class ToDoHandler:
                         result += f"Feladat kiválasztásához tartozó referencia ID:  {task['id']}\n\n"
                     return result
                 else:
-                    return "Nincsenek felvett ToDo feladatok"+username+" felhasználóhoz."
+                    return "Nincsenek felvett ToDo feladatok" + username + " felhasználóhoz."
 
         except FileNotFoundError:
             print("A ToDoData.json fájl nem található.")
@@ -273,8 +273,8 @@ class ToDoHandler:
                     if 'failed_tasks' in todo_stat[username] and 'completed_tasks' in todo_stat[username]:
                         completed_num = int(todo_stat[username]['completed_tasks'])
                         failed_num = int(todo_stat[username]['failed_tasks'])
-                        total_num = completed_num+failed_num
-                        rate = round(((completed_num/total_num)*100), 2)
+                        total_num = completed_num + failed_num
+                        rate = round(((completed_num / total_num) * 100), 2)
                         result += f"Az általad elvégzett feladatok sikerességi aránya: {rate}%\n"
                     return result
                 else:

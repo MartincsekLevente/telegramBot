@@ -5,5 +5,3 @@ class ToDoTask:
         self.title = title
         self.date = date
         self.description = description
-
-

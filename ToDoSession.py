@@ -68,11 +68,11 @@ class ToDoSession:
                        'Ahhoz, hogy hozzáadj egy elemet a ToDo listádhoz, csak írd be kívánt ToDo feladatod nevét! '
             case 3:
                 return 'Az általad választott név a következő: ' + info1 + '\n\n' \
-                                                                          'Most add meg kérlek milyen dátummal legyen határidős az általad választott ToDo feladat.\n' \
-                                                                          'A dátumot így add meg: Év/Hónap/Nap \nPl: 2023/04/24'
+                                                                           'Most add meg kérlek milyen dátummal legyen határidős az általad választott ToDo feladat.\n' \
+                                                                           'A dátumot így add meg: Év/Hónap/Nap \nPl: 2023/04/24'
             case 4:
                 return 'Az általad választott dátum a következő: ' + info1 + '\n\n' \
-                                                                            'Most add meg kérlek milyen leírás tartozzon általad választott ToDO feladathoz!\n'
+                                                                             'Most add meg kérlek milyen leírás tartozzon általad választott ToDO feladathoz!\n'
             case 5:
                 self.state = 1
                 return 'A [Megjelenítés] funkciót választottad. \n' \
@@ -87,12 +87,12 @@ class ToDoSession:
                        + ToDoHandler.to_do_list_show_all(info1)
             case 7:
                 return 'Az általad beírt referencia ID (' + info2 + ') alapján ezt a feladatot választottad ki:\n\n' \
-                        + ToDoHandler.to_do_list_select_task_by_id(info1, info2) + \
-                        'A következő lépésben kérlek add meg, hogy hogyan szeretnéd ' \
-                        'lezárni az adott ToDo feladatot!\n\n' \
-                        'completed: Ezt a feladatot teljesítetted.\n' \
-                        'failed: Ezt a feladatot nem teljesítetted.\n' \
-                        'remove: Ez a feladat tévesen lett felvéve.\n'
+                       + ToDoHandler.to_do_list_select_task_by_id(info1, info2) + \
+                       'A következő lépésben kérlek add meg, hogy hogyan szeretnéd ' \
+                       'lezárni az adott ToDo feladatot!\n\n' \
+                       'completed: Ezt a feladatot teljesítetted.\n' \
+                       'failed: Ezt a feladatot nem teljesítetted.\n' \
+                       'remove: Ez a feladat tévesen lett felvéve.\n'
             case 8:
                 self.state = 1
                 return 'A kiválasztott ToDo feladat elvégzett státusszal le lett zárva!\n\n' \
@@ -121,9 +121,9 @@ class ToDoSession:
                task_id: A feladat id-je, ami hibásan lett megadva
         """
         return 'A megadott ToDo feladat referencia ID (' + task_id + ') hibás!\n' \
-               'Add meg helyesen az ID-t. Ha nincsen meg ez az ID,' \
-               ' akkor visszalépve ' \
-               'a show all parancsot használva megtudod találni.'
+                                                                     'Add meg helyesen az ID-t. Ha nincsen meg ez az ID,' \
+                                                                     ' akkor visszalépve ' \
+                                                                     'a show all parancsot használva megtudod találni.'
 
     def quit_session(self):
         """
@@ -163,7 +163,7 @@ class ToDoSession:
                 if user_message.lower() in ("hello", "szia"):
                     return "Szia! Miben tudok segíteni? \nA parancsok megtekintéséhez használd a /help funkciót!"
                 elif user_message.lower() in ("idő", "ido?", "mennyi az ido", "mennyi az idő?"):
-                    return "A jelenlegi pontos idő: "+str(ToDoHandler.get_time())
+                    return "A jelenlegi pontos idő: " + str(ToDoHandler.get_time())
                 elif user_message.lower() in "todo":
                     return self.start_session()
                 else:
@@ -228,4 +228,3 @@ class ToDoSession:
                 elif user_message.lower() == "remove":
                     ToDoHandler.to_do_list_remove_task_by_id(username, self.selectedTaskID)
                     return self.jump_to_state(10)
-
