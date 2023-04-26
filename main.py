@@ -1,4 +1,4 @@
-import Constants as keys
+import Constants as const
 from telegram.ext import *
 import Responses as R
 from ToDoSession import ToDoSession
@@ -7,6 +7,13 @@ sessions_dict = {}
 
 
 def handle_message(update, context):
+    """
+       Ez a függvény kezeli a felhasználótól kapott üzeneteket.
+
+       Args:
+           update: Az üzenet és az üzenetküldő tulajdonságai.
+           context: A kontextus.
+    """
     text = str(update.message.text)
     username = update.message.from_user.username
     if username in sessions_dict:
@@ -20,28 +27,46 @@ def handle_message(update, context):
 
 
 def start_command(update, context):
-    update.message.reply_text('Szia! Miben tudok segíteni? A parancsok megtekintéséhez használd a /help funkciót!')
+    """
+       Ez a függvény kezeli a /start parancsot.
+
+       Args:
+           update: Az üzenet és az üzenetküldő tulajdonságai.
+           context: A kontextus.
+    """
+    update.message.reply_text(const.start_text)
 
 
 def help_command(update, context):
-    update.message.reply_text('Én egy olyan bot vagyok, aki a te ToDo listádat tudja vezérelni!\n\n'
-                              'Hogyha még soha nem használtál, lépj be a ToDo Hub-ba és '
-                              'próbáld ki a következő parancsok egyikét:\n\n'
-                              'todo - Belépsz a ToDo Hub-ba, ahonnan elérhető az összes jelenleg elérhető funkcióm!\n\n'
-                              'Hozzáadás - Addj hozzá a ToDo listádhoz egy saját feladatot! \n\n'
-                              'Kiválasztás - Válassz ki egy feladatot a saját ToDo listádról! \n\n'
-                              'Megjelenítés - Megjelenítem neked az összes ToDo feladatodat a listádról!\n\n'
-                              'Teljesítmény - Megjelenítem neked az eddig elért eredményeidet a '
-                              'teljesített feladataid alapján!\n\n')
+    """
+        Ez a függvény kezeli a /help parancsot.
+
+        Args:
+            update: Az üzenet és az üzenetküldő tulajdonságai.
+            context: A kontextus.
+    """
+
+    update.message.reply_text(const.help_text)
 
 
 def error(update, context):
+    """
+        Ez a függvény kezeli az error lehetőségeket.
+
+        Args:
+            update: Az üzenet és az üzenetküldő tulajdonságai.
+            context: A kontextus, ebből vehető ki maga az error típusa.
+    """
     print(f"ERROR: Update {update} caused error {context.error}")
 
 
 def main():
+    """
+        A main függvény, ebből indul ki az összes segéd függvény.
+
+    """
     print("Bot started...")
-    updater = Updater(keys.API_KEY, use_context=True)
+    updater = Updater(const.API_KEY, use_context=True)
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("start", start_command))

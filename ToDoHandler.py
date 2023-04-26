@@ -6,14 +6,38 @@ class ToDoHandler:
 
     @staticmethod
     def get_time():
+        """
+           Ez a függvény visszaadja az aktuális időt.
+
+           Returns:
+                datetime: Az aktuális idő.
+        """
         return datetime.now().strftime("%d/%m/%y, %H:%M:%S")
 
     @staticmethod
     def not_clear_text(username):
-        return "Bocsi, " + username + ", nem ismerem fel ezt a parancsot. Használd a /help funkciót ha elakadnál."
+        """
+           Ez a függvény visszaadja azt az opciót, hogyha a beírt szöveg nem felismerhető
+
+           Args:
+               username: Az aktuális beszélgető partner felhasználóneve
+        """
+        return "Bocsi, " + username + ", nem ismerem fel ezt a parancsot. Használd a /help funkciót ha elakadnál.\n" \
+                                      "Amennyiben szeretnél belépni a ToDo Hub-ba, akkor írd be azt, hogy todo"
 
     @staticmethod
     def to_do_list_add(username, current_to_do_task):
+        """
+           Ez a függvény hozzáad egy feladatot a felhasználó listájához
+
+           Args:
+               username: Az aktuális beszélgető partner felhasználóneve
+               current_to_do_task: A feladat, amit hozzá kell adni a listához
+
+           Raises:
+               FileNotFoundError: Ha a fájl nem található
+               json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
+        """
         try:
             with open("ToDoData.json", "r") as json_file:
                 todo_data = json.load(json_file)
@@ -47,6 +71,16 @@ class ToDoHandler:
 
     @staticmethod
     def to_do_list_show_all(username):
+        """
+           Ez a függvény megjeleníti az összes adott felhasználónévhez tartozó feldatot
+
+           Args:
+               username: Az aktuális beszélgető partner felhasználóneve
+
+           Raises:
+               FileNotFoundError: Ha a fájl nem található
+               json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
+        """
         try:
             with open('ToDoData.json', 'r') as json_file:
                 todo_data = json.load(json_file)
@@ -69,6 +103,17 @@ class ToDoHandler:
 
     @staticmethod
     def to_do_list_select_check(username, task_id):
+        """
+           Ez a függvény megnézi, hogy a paraméterben beadott feladat id kiválasztható-e
+
+           Args:
+               username: Az aktuális beszélgető partner felhasználóneve
+               task_id: Az aktuális paraméterben megadott feladat id-je
+
+           Raises:
+               FileNotFoundError: Ha a fájl nem található
+               json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
+        """
         try:
             with open('ToDoData.json', 'r') as json_file:
                 todo_data = json.load(json_file)
@@ -84,6 +129,17 @@ class ToDoHandler:
 
     @staticmethod
     def to_do_list_select_task_by_id(username, task_id):
+        """
+           Ez a függvény elvégzi a paraméterben beadott feladat id alapján a kiválasztást
+
+           Args:
+               username: Az aktuális beszélgető partner felhasználóneve
+               task_id: Az aktuális paraméterben megadott feladat id-je
+
+           Raises:
+               FileNotFoundError: Ha a fájl nem található
+               json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
+        """
         try:
             with open('ToDoData.json', 'r') as json_file:
                 todo_data = json.load(json_file)
@@ -103,6 +159,17 @@ class ToDoHandler:
 
     @staticmethod
     def to_do_list_remove_task_by_id(username, task_id):
+        """
+           Ez a függvény elvégzi a paraméterben beadott feladat id alapján a feladat törlését
+
+           Args:
+               username: Az aktuális beszélgető partner felhasználóneve
+               task_id: Az aktuális paraméterben megadott feladat id-je
+
+           Raises:
+               FileNotFoundError: Ha a fájl nem található
+               json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
+        """
         try:
             with open('ToDoData.json', 'r') as json_file:
                 todo_data = json.load(json_file)
@@ -120,6 +187,16 @@ class ToDoHandler:
 
     @staticmethod
     def to_do_list_task_completed(username):
+        """
+           Ez a függvény elvégzi a paraméterben megadott felhasználónév alapján a teljesítettnek jelölést
+
+           Args:
+               username: Az aktuális beszélgető partner felhasználóneve
+
+           Raises:
+               FileNotFoundError: Ha a fájl nem található
+               json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
+        """
         try:
             with open("ToDoStat.json", "r") as json_file:
                 todo_stat = json.load(json_file)
@@ -139,6 +216,16 @@ class ToDoHandler:
 
     @staticmethod
     def to_do_list_task_failed(username):
+        """
+           Ez a függvény elvégzi a paraméterben megadott felhasználónév alapján a teljesítettlennek jelölést
+
+           Args:
+               username: Az aktuális beszélgető partner felhasználóneve
+
+           Raises:
+               FileNotFoundError: Ha a fájl nem található
+               json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
+        """
         try:
             with open("ToDoStat.json", "r") as json_file:
                 todo_stat = json.load(json_file)
@@ -158,6 +245,16 @@ class ToDoHandler:
 
     @staticmethod
     def to_do_list_show_performance(username):
+        """
+           Ez a függvény elvégzi a paraméterben megadott felhasználónév alapján a statisztika kiszámolását és kiiratását
+
+           Args:
+               username: Az aktuális beszélgető partner felhasználóneve
+
+           Raises:
+               FileNotFoundError: Ha a fájl nem található
+               json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
+        """
         try:
             with open('ToDoStat.json', 'r') as json_file:
                 todo_stat = json.load(json_file)

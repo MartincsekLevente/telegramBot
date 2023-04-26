@@ -1,5 +1,6 @@
 from ToDoHandler import ToDoHandler
 from ToDoTask import ToDoTask
+import Constants as const
 import uuid
 
 
@@ -11,26 +12,51 @@ class ToDoSession:
         self.selectedTaskID = ''
 
     def get_state(self):
+        """
+           Ez a függvény visszaadja az aktuális state-t
+        """
         return self.state
 
     def start_add_new_task(self):
+        """
+           Ez a függvény példányosít egy feladatot, üres értékkel későbbi feltöltésre
+        """
         self.currentToDoTask = ToDoTask()
 
     def set_state(self, state):
+        """
+           Ezzel a függvénnyel lehet beállítani a state aktuális értékét
+
+           Args:
+               state: A state amire be kell állítani a változót
+        """
         self.state = state
 
     def set_selected_task_id(self, task_id):
+        """
+           Ezzel a függvénnyel lehet beállítani a kiválasztott feladat id-jét.
+
+           Args:
+               task_id: A kiválasztott feladat id-je
+        """
         self.selectedTaskID = task_id
 
     def start_session(self):
+        """
+           Ezzel a függvénnyel lehet elindítani a session-t, így a state is visszaállítódik 1-re
+        """
         self.state = 1
-        return "Üdvözöllek a ToDo opciónál! Válassz a megadott opciók közül: \n\n" \
-               "Hozzáadás - Addj hozzá a ToDo listádhoz egy feladatot! \n\n" \
-               "Kiválasztás - Válassz ki egy feladatot a saját ToDo listádról! \n\n" \
-               "Megjelenítés -  Megjelenítem neked az összes ToDo feladatot a listádról! \n\n" \
-               "Teljesítmény - Megjelenítem neked az eddig elért eredményeidet a teljesített feladataid alapján! \n"
+        return const.start_session_text
 
     def jump_to_state(self, to_jump, info1='', info2=''):
+        """
+           Ezzel a függvénnyel át lehet ugrani egy bizonyos paraméterben megadott state-re, ebben az aktív session-ben.
+
+           Args:
+               to_jump: A state id-je, ahova át kell ugrania ennek az aktív session-nek.
+               info1: Az első nem kötelező, plusz információ átadásra fenttartott paraméter
+               info2: Az második nem kötelező, plusz információ átadásra fenttartott paraméter
+        """
         self.state = to_jump
         match to_jump:
             case 0:
@@ -88,17 +114,32 @@ class ToDoSession:
 
     @staticmethod
     def wrong_task_id(task_id):
+        """
+           Ez a függvény kezeli le azt az esetet, amikor nem megfelelő feladat id lett megadva a kiválasztáshoz
+
+           Args:
+               task_id: A feladat id-je, ami hibásan lett megadva
+        """
         return 'A megadott ToDo feladat referencia ID (' + task_id + ') hibás!\n' \
                'Add meg helyesen az ID-t. Ha nincsen meg ez az ID,' \
                ' akkor visszalépve ' \
                'a show all parancsot használva megtudod találni.'
 
     def quit_session(self):
+        """
+           Ez a függvény kezeli le azt az esetet, amikor szeretne a felhasználó kilépni az aktív session-ből
+        """
         self.state = 0
         return "Kilépés sikeres! Miben tudok még segíteni? " \
                "A parancsok megtekintéséhez használd a /help funkciót!"
 
     def task_added_successfully(self, username):
+        """
+           Ez a függvény kezeli le azt az esetet, amikor a feladat hozzáadása sikeres volt
+
+           Args:
+               username: Az aktuális beszélgető partner felhasználóneve
+        """
         self.state = 1
         ToDoHandler.to_do_list_add(username, self.currentToDoTask)
         return "A ToDo feladat hozzáadása sikeres!\n\nItt a ToDo feladatod részletes leírása:\n" \
@@ -108,20 +149,28 @@ class ToDoSession:
                                                                                                                                               "További parancsok megtekintéséhez használd a /help funkciót!"
 
     def reply(self, user_message, username):
+        """
+           Ez a függvény felelős minden válasz adásért. A statek alapján kikeresi, hogy a beszélgetési fában hol járnak
+           a beszélgető partnerrel, és az alapján lépteti a funkciók között.
+
+           Args:
+               user_message: Az aktuális beszélgető partner üzenete
+               username: Az aktuális beszélgető partner felhasználóneve
+        """
         match self.state:
             # case 0: casual conversation
             case 0:
                 if user_message.lower() in ("hello", "szia"):
                     return "Szia! Miben tudok segíteni? \nA parancsok megtekintéséhez használd a /help funkciót!"
                 elif user_message.lower() in ("idő", "ido?", "mennyi az ido", "mennyi az idő?"):
-                    return "A jelenlegi pontos idő: "+ToDoHandler.get_time()
+                    return "A jelenlegi pontos idő: "+str(ToDoHandler.get_time())
                 elif user_message.lower() in "todo":
                     return self.start_session()
                 else:
                     return ToDoHandler.not_clear_text(username)
             # case 1: add, delete, show all commands root
             case 1:
-                if user_message.lower() in ("quit", "exit"):
+                if user_message.lower() in ("kilépés", "kilepes"):
                     return self.quit_session()
                 elif (user_message.lower() == "hozzáadás") or (user_message.lower() == "hozzaadas"):
                     self.start_add_new_task()
@@ -137,28 +186,28 @@ class ToDoSession:
                     return ToDoHandler.not_clear_text(username)
             # case 2: add title
             case 2:
-                if user_message.lower() in ("quit", "exit"):
+                if user_message.lower() in ("kilépés", "kilepes"):
                     return self.quit_session()
                 else:
                     self.currentToDoTask.title = str(user_message)
                     return self.jump_to_state(3, user_message)
             # case 3: add date
             case 3:
-                if user_message.lower() in ("quit", "exit"):
+                if user_message.lower() in ("kilépés", "kilepes"):
                     return self.quit_session()
                 else:
                     self.currentToDoTask.date = str(user_message)
                     return self.jump_to_state(4, user_message)
             # case 4: add description
             case 4:
-                if user_message.lower() in ("quit", "exit"):
+                if user_message.lower() in ("kilépés", "kilepes"):
                     return self.quit_session()
                 else:
                     self.currentToDoTask.description = str(user_message)
                     self.currentToDoTask.task_id = str(uuid.uuid1())
                     return self.task_added_successfully(username)
             case 6:
-                if user_message.lower() in ("quit", "exit"):
+                if user_message.lower() in ("kilépés", "kilepes"):
                     return self.quit_session()
                 elif ToDoHandler.to_do_list_select_check(username, user_message):
                     self.set_selected_task_id(user_message)
@@ -166,7 +215,7 @@ class ToDoSession:
                 else:
                     return self.wrong_task_id(user_message)
             case 7:
-                if user_message.lower() in ("quit", "exit"):
+                if user_message.lower() in ("kilépés", "kilepes"):
                     return self.quit_session()
                 elif user_message.lower() == "completed":
                     ToDoHandler.to_do_list_task_completed(username)
