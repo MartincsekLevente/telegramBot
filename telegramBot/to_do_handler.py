@@ -22,8 +22,10 @@ class ToDoHandler:
            Args:
                username: Az aktuális beszélgető partner felhasználóneve
         """
-        return "Bocsi, " + username + ", nem ismerem fel ezt a parancsot. Használd a /help funkciót ha elakadnál.\n" \
-                                      "Amennyiben szeretnél belépni a ToDo Hub-ba, akkor írd be azt, hogy todo"
+        return "Bocsi, " + username + ", nem ismerem fel ezt a parancsot. " \
+                                      "Használd a /help funkciót ha elakadnál.\n" \
+                                      "Amennyiben szeretnél belépni a ToDo Hub-ba, " \
+                                      "akkor írd be azt, hogy todo"
 
     @staticmethod
     def to_do_list_add(username, current_to_do_task):
@@ -39,7 +41,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open("ToDoData.json", "r") as json_file:
+            with open("telegramBot/ToDoData.json", "r", encoding="utf-8") as json_file:
                 todo_data = json.load(json_file)
 
             task_dict = {
@@ -55,10 +57,11 @@ class ToDoHandler:
             else:
                 todo_data[username] = [task_dict]
 
-            with open("ToDoData.json", "w") as json_file:
+            with open("telegramBot/ToDoData.json", "w", encoding="utf-8") as json_file:
                 json.dump(todo_data, json_file)
 
-                print("New ToDo task added: username: {}, task_id: {}, title: {}, date: {}, description: {}".format(
+                print("New ToDo task added: username: {}, task_id: {}, title: {}, "
+                      "date: {}, description: {}".format(
                     username,
                     current_to_do_task.task_id,
                     current_to_do_task.title,
@@ -82,7 +85,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open('ToDoData.json', 'r') as json_file:
+            with open('telegramBot/ToDoData.json', 'r', encoding="utf-8") as json_file:
                 todo_data = json.load(json_file)
                 if username in todo_data:
                     tasks = todo_data[username]
@@ -91,7 +94,8 @@ class ToDoHandler:
                         result += f"Cím:  {task['title']}\n"
                         result += f"Teljesítési dátum:  {task['date']}\n"
                         result += f"Feladat leírása:  {task['description']}\n"
-                        result += f"Feladat kiválasztásához tartozó referencia ID:  {task['id']}\n\n"
+                        result += f"Feladat kiválasztásához tartozó " \
+                                  f"referencia ID:  {task['id']}\n\n"
                     return result
                 else:
                     return "Nincsenek felvett ToDo feladatok" + username + " felhasználóhoz."
@@ -115,7 +119,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open('ToDoData.json', 'r') as json_file:
+            with open('telegramBot/ToDoData.json', 'r', encoding="utf-8") as json_file:
                 todo_data = json.load(json_file)
             tasks = todo_data[username]
             for task in tasks:
@@ -141,7 +145,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open('ToDoData.json', 'r') as json_file:
+            with open('telegramBot/ToDoData.json', 'r', encoding="utf-8") as json_file:
                 todo_data = json.load(json_file)
             tasks = todo_data[username]
             for task in tasks:
@@ -171,14 +175,14 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open('ToDoData.json', 'r') as json_file:
+            with open('telegramBot/ToDoData.json', 'r', encoding="utf-8") as json_file:
                 todo_data = json.load(json_file)
                 tasks = todo_data[username]
                 for task in tasks:
                     if task['id'] == task_id:
                         tasks.remove(task)
                 todo_data[username] = tasks
-            with open("ToDoData.json", "w") as json_file:
+            with open("telegramBot/ToDoData.json", "w", encoding="utf-8") as json_file:
                 json.dump(todo_data, json_file)
         except FileNotFoundError:
             print("A ToDoData.json fájl nem található.")
@@ -188,7 +192,8 @@ class ToDoHandler:
     @staticmethod
     def to_do_list_task_completed(username):
         """
-           Ez a függvény elvégzi a paraméterben megadott felhasználónév alapján a teljesítettnek jelölést
+           Ez a függvény elvégzi a paraméterben megadott
+           felhasználónév alapján a teljesítettnek jelölést
 
            Args:
                username: Az aktuális beszélgető partner felhasználóneve
@@ -198,7 +203,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open("ToDoStat.json", "r") as json_file:
+            with open("telegramBot/ToDoStat.json", "r", encoding="utf-8") as json_file:
                 todo_stat = json.load(json_file)
             if username in todo_stat:
                 if 'completed_tasks' in todo_stat[username]:
@@ -207,7 +212,7 @@ class ToDoHandler:
                     todo_stat[username]['completed_tasks'] = 1
             else:
                 todo_stat[username] = {'completed_tasks': 1}
-            with open("ToDoStat.json", "w") as json_file:
+            with open("telegramBot/ToDoStat.json", "w", encoding="utf-8") as json_file:
                 json.dump(todo_stat, json_file)
         except FileNotFoundError:
             print("A ToDoStat.json fájl nem található.")
@@ -217,7 +222,8 @@ class ToDoHandler:
     @staticmethod
     def to_do_list_task_failed(username):
         """
-           Ez a függvény elvégzi a paraméterben megadott felhasználónév alapján a teljesítettlennek jelölést
+           Ez a függvény elvégzi a paraméterben megadott felhasználónév
+            alapján a teljesítettlennek jelölést
 
            Args:
                username: Az aktuális beszélgető partner felhasználóneve
@@ -227,7 +233,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open("ToDoStat.json", "r") as json_file:
+            with open("telegramBot/ToDoStat.json", "r", encoding="utf-8") as json_file:
                 todo_stat = json.load(json_file)
             if username in todo_stat:
                 if 'failed_tasks' in todo_stat[username]:
@@ -236,7 +242,7 @@ class ToDoHandler:
                     todo_stat[username]['failed_tasks'] = 1
             else:
                 todo_stat[username] = {'failed_tasks': 1}
-            with open("ToDoStat.json", "w") as json_file:
+            with open("telegramBot/ToDoStat.json", "w", encoding="utf-8") as json_file:
                 json.dump(todo_stat, json_file)
         except FileNotFoundError:
             print("A ToDoStat.json fájl nem található.")
@@ -246,7 +252,8 @@ class ToDoHandler:
     @staticmethod
     def to_do_list_show_performance(username):
         """
-           Ez a függvény elvégzi a paraméterben megadott felhasználónév alapján a statisztika kiszámolását és kiiratását
+           Ez a függvény elvégzi a paraméterben megadott felhasználónév
+           alapján a statisztika kiszámolását és kiiratását
 
            Args:
                username: Az aktuális beszélgető partner felhasználóneve
@@ -256,7 +263,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open('ToDoStat.json', 'r') as json_file:
+            with open('telegramBot/ToDoStat.json', 'r', encoding="utf-8") as json_file:
                 todo_stat = json.load(json_file)
                 if username in todo_stat:
                     result = ""

@@ -1,0 +1,4 @@
+setuptools~=65.5.0
+DateTime~=5.1
+uuid~=1.30
+python-telegram-bot~=13.7

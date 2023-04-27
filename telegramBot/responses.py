@@ -1,4 +1,4 @@
-import Constants as const
+from telegramBot import constants
 
 
 def sample_responses(input_text, username, current_session):
@@ -13,6 +13,6 @@ def sample_responses(input_text, username, current_session):
     user_message = str(input_text)
 
     if username == "None":
-        return const.none_user_name_text
+        return constants.NONE_USER_NAME_TEXT
 
     return current_session.reply(user_message, username)

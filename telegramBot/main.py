@@ -1,7 +1,6 @@
-import Constants as const
 from telegram.ext import *
-import Responses as R
-from ToDoSession import ToDoSession
+from telegramBot.to_do_session import ToDoSession
+from telegramBot import responses, constants
 
 sessions_dict = {}
 
@@ -22,7 +21,7 @@ def handle_message(update, context):
         current_session = ToDoSession()
         sessions_dict[username] = current_session
 
-    response = R.sample_responses(text, username, current_session)
+    response = responses.sample_responses(text, username, current_session)
     update.message.reply_text(response)
 
 
@@ -34,7 +33,7 @@ def start_command(update, context):
            update: Az üzenet és az üzenetküldő tulajdonságai.
            context: A kontextus.
     """
-    update.message.reply_text(const.start_text)
+    update.message.reply_text(constants.START_TEXT)
 
 
 def help_command(update, context):
@@ -46,7 +45,7 @@ def help_command(update, context):
             context: A kontextus.
     """
 
-    update.message.reply_text(const.help_text)
+    update.message.reply_text(constants.HELP_TEXT)
 
 
 def error(update, context):
@@ -66,15 +65,15 @@ def main():
 
     """
     print("Bot started...")
-    updater = Updater(const.API_KEY, use_context=True)
-    dp = updater.dispatcher
+    updater = Updater(constants.API_KEY, use_context=True)
+    dispatcher = updater.dispatcher
 
-    dp.add_handler(CommandHandler("start", start_command))
-    dp.add_handler(CommandHandler("help", help_command))
+    dispatcher.add_handler(CommandHandler("start", start_command))
+    dispatcher.add_handler(CommandHandler("help", help_command))
 
-    dp.add_handler(MessageHandler(Filters.text, handle_message))
+    dispatcher.add_handler(MessageHandler(Filters.text, handle_message))
 
-    dp.add_error_handler(error)
+    dispatcher.add_error_handler(error)
 
     updater.start_polling()
     updater.idle()
