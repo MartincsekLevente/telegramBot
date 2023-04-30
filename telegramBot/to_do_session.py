@@ -172,7 +172,9 @@ class ToDoSession:
                 if user_message.lower() in ("hello", "szia"):
                     return "Szia! Miben tudok segíteni? \n" \
                            "A parancsok megtekintéséhez használd a /help funkciót!"
-                elif user_message.lower() in ("idő", "ido?", "mennyi az ido", "mennyi az idő?"):
+                elif (user_message.lower() == "idő") or \
+                        (user_message.lower() == "idö") or \
+                        (user_message.lower() == "ido"):
                     return "A jelenlegi pontos idő: " + str(ToDoHandler.get_time())
                 elif user_message.lower() in "todo":
                     return self.start_session()
