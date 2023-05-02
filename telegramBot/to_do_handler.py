@@ -41,7 +41,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open("telegramBot/ToDoData.json", "r", encoding="utf-8") as json_file:
+            with open("ToDoData.json", "r", encoding="utf-8") as json_file:
                 todo_data = json.load(json_file)
 
             task_dict = {
@@ -57,7 +57,7 @@ class ToDoHandler:
             else:
                 todo_data[username] = [task_dict]
 
-            with open("telegramBot/ToDoData.json", "w", encoding="utf-8") as json_file:
+            with open("ToDoData.json", "w", encoding="utf-8") as json_file:
                 json.dump(todo_data, json_file)
 
                 print("New ToDo task added: username: {}, task_id: {}, title: {}, "
@@ -85,7 +85,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open('telegramBot/ToDoData.json', 'r', encoding="utf-8") as json_file:
+            with open('ToDoData.json', 'r', encoding="utf-8") as json_file:
                 todo_data = json.load(json_file)
                 if username in todo_data:
                     tasks = todo_data[username]
@@ -119,7 +119,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open('telegramBot/ToDoData.json', 'r', encoding="utf-8") as json_file:
+            with open('ToDoData.json', 'r', encoding="utf-8") as json_file:
                 todo_data = json.load(json_file)
             tasks = todo_data[username]
             for task in tasks:
@@ -145,7 +145,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open('telegramBot/ToDoData.json', 'r', encoding="utf-8") as json_file:
+            with open('ToDoData.json', 'r', encoding="utf-8") as json_file:
                 todo_data = json.load(json_file)
             tasks = todo_data[username]
             for task in tasks:
@@ -175,14 +175,14 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open('telegramBot/ToDoData.json', 'r', encoding="utf-8") as json_file:
+            with open('ToDoData.json', 'r', encoding="utf-8") as json_file:
                 todo_data = json.load(json_file)
                 tasks = todo_data[username]
                 for task in tasks:
                     if task['id'] == task_id:
                         tasks.remove(task)
                 todo_data[username] = tasks
-            with open("telegramBot/ToDoData.json", "w", encoding="utf-8") as json_file:
+            with open("ToDoData.json", "w", encoding="utf-8") as json_file:
                 json.dump(todo_data, json_file)
         except FileNotFoundError:
             print("A ToDoData.json fájl nem található.")
@@ -203,7 +203,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open("telegramBot/ToDoStat.json", "r", encoding="utf-8") as json_file:
+            with open("ToDoStat.json", "r", encoding="utf-8") as json_file:
                 todo_stat = json.load(json_file)
             if username in todo_stat:
                 if 'completed_tasks' in todo_stat[username]:
@@ -212,7 +212,7 @@ class ToDoHandler:
                     todo_stat[username]['completed_tasks'] = 1
             else:
                 todo_stat[username] = {'completed_tasks': 1}
-            with open("telegramBot/ToDoStat.json", "w", encoding="utf-8") as json_file:
+            with open("ToDoStat.json", "w", encoding="utf-8") as json_file:
                 json.dump(todo_stat, json_file)
         except FileNotFoundError:
             print("A ToDoStat.json fájl nem található.")
@@ -233,7 +233,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open("telegramBot/ToDoStat.json", "r", encoding="utf-8") as json_file:
+            with open("ToDoStat.json", "r", encoding="utf-8") as json_file:
                 todo_stat = json.load(json_file)
             if username in todo_stat:
                 if 'failed_tasks' in todo_stat[username]:
@@ -242,7 +242,7 @@ class ToDoHandler:
                     todo_stat[username]['failed_tasks'] = 1
             else:
                 todo_stat[username] = {'failed_tasks': 1}
-            with open("telegramBot/ToDoStat.json", "w", encoding="utf-8") as json_file:
+            with open("ToDoStat.json", "w", encoding="utf-8") as json_file:
                 json.dump(todo_stat, json_file)
         except FileNotFoundError:
             print("A ToDoStat.json fájl nem található.")
@@ -263,7 +263,7 @@ class ToDoHandler:
                json.JSONDecodeError: Ha nem sikerül dekódolni a json fájlt
         """
         try:
-            with open('telegramBot/ToDoStat.json', 'r', encoding="utf-8") as json_file:
+            with open('ToDoStat.json', 'r', encoding="utf-8") as json_file:
                 todo_stat = json.load(json_file)
                 if username in todo_stat:
                     result = ""
