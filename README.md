@@ -10,8 +10,12 @@
 - Feladat megjelőlése sikeres vagy sikertelennek
 - Statisztika készítése az elvégzett feladatok arányáról
 
+##Szükséges csomagok:
+- python-telegram-chatbot - 13.7
+- `pip install -r requirements.txt` paranccsal lehet telepíteni a szükséges csomagokat
+
 ##A bot működése:
-- Egyedi API kulcs alapján van bekonfigurálva
+- Egyedi API kulcs alapján van bekonfigurálva, amit ki lehet cserélni ha a saját chatbotodat szeretnéd használni.
 - A bot képes külön session-t kezelni minden beszélgető partner esetén
 - Json fájlokban van eltárolva a felhasználók adatai.
 - A kód jól struktúrált, dokumentált, konstansokba szervezett
